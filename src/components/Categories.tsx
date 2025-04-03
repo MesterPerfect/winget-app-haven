@@ -9,6 +9,12 @@ const categories = [
   'Productivity',
   'Security',
   'Communication',
+  'Utilities',
+  'Media',
+  'Gaming',
+  'Education',
+  'Social',
+  'Cloud',
 ];
 
 const Categories = ({ onSelect }: { onSelect: (category: string) => void }) => {

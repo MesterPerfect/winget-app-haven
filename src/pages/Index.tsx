@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import SearchBar from '../components/SearchBar';
 import AppCard from '../components/AppCard';
 import Categories from '../components/Categories';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 // Mock data - replace with actual API calls later
 const mockApps = [
@@ -41,14 +42,19 @@ const Index = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 to-white">
+    <div className="min-h-screen bg-background transition-colors">
       <div className="max-w-7xl mx-auto px-4 py-12">
+        {/* Header with Theme Toggle */}
+        <div className="flex justify-end mb-4">
+          <ThemeToggle />
+        </div>
+        
         {/* Hero Section */}
         <div className="text-center space-y-8 mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground">
             Windows Package Manager Haven
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Discover and install Windows applications with just one command
           </p>
           <div className="flex justify-center">

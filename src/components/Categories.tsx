@@ -18,7 +18,7 @@ const Categories = ({ onSelect }: { onSelect: (category: string) => void }) => {
         <Button
           key={category}
           variant="outline"
-          className="whitespace-nowrap"
+          className="whitespace-nowrap border-border hover:bg-secondary"
           onClick={() => onSelect(category)}
         >
           {category}

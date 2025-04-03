@@ -19,20 +19,20 @@ const AppCard = ({ name, description, installCommand, category }: AppCardProps) 
   };
 
   return (
-    <Card className="w-full h-full bg-white/10 backdrop-blur-lg border border-gray-200 hover:border-blue-400 transition-all">
+    <Card className="w-full h-full border border-border transition-all hover:border-primary/50">
       <CardHeader>
         <div className="flex items-start justify-between">
           <CardTitle className="text-lg font-semibold">{name}</CardTitle>
-          <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
+          <span className="px-2 py-1 text-xs bg-secondary text-secondary-foreground rounded-full">
             {category}
           </span>
         </div>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-gray-600 line-clamp-2">{description}</p>
+        <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
       </CardContent>
       <CardFooter className="flex justify-between items-center">
-        <code className="text-sm bg-gray-100 px-2 py-1 rounded">
+        <code className="text-sm bg-muted text-muted-foreground px-2 py-1 rounded">
           {installCommand}
         </code>
         <Button variant="ghost" size="sm" onClick={copyCommand}>

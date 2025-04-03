@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import SearchBar from '../components/SearchBar';
 import AppCard from '../components/AppCard';
 import Categories from '../components/Categories';
@@ -287,11 +287,62 @@ const mockApps = [
     installCommand: 'winget install GeoGebra.Classic',
     category: 'Education',
   },
+  // Add new programs as requested by the user
+  {
+    id: 41,
+    name: 'NVDA',
+    description: 'Free, open source screen reader for Windows',
+    installCommand: 'winget install NVAccess.NVDA',
+    category: 'Screen Reader',
+  },
+  {
+    id: 42,
+    name: 'JAWS',
+    description: 'Professional screen reader for Windows',
+    installCommand: 'winget install FreedomScientific.JAWS',
+    category: 'Screen Reader',
+  },
+  {
+    id: 43,
+    name: 'AlBayan',
+    description: 'Arabic text-to-speech software by Tecwindow',
+    installCommand: 'winget install Tecwindow.AlBayan',
+    category: 'Tecwindow',
+  },
+  {
+    id: 44,
+    name: 'Sound Transcriber',
+    description: 'Audio transcription tool by Tecwindow',
+    installCommand: 'winget install Tecwindow.SoundTranscriber',
+    category: 'Tecwindow',
+  },
+  {
+    id: 45,
+    name: 'WikiSearch',
+    description: 'Wikipedia search tool by Tecwindow',
+    installCommand: 'winget install Tecwindow.WikiSearch',
+    category: 'Tecwindow',
+  },
 ];
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+
+  // Count apps by category
+  const categoryCounts = useMemo(() => {
+    const counts: {[key: string]: number} = {'All': 0};
+    
+    mockApps.forEach(app => {
+      if (counts[app.category]) {
+        counts[app.category]++;
+      } else {
+        counts[app.category] = 1;
+      }
+    });
+    
+    return counts;
+  }, []);
 
   const filteredApps = mockApps.filter(app => {
     const matchesSearch = app.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -299,6 +350,9 @@ const Index = () => {
     const matchesCategory = selectedCategory === 'All' || app.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
+
+  // Get total number of apps
+  const totalApps = mockApps.length;
 
   return (
     <div className="min-h-screen bg-background transition-colors">
@@ -316,14 +370,19 @@ const Index = () => {
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Discover and install Windows applications with just one command
           </p>
-          <div className="flex justify-center">
-            <SearchBar onSearch={setSearchQuery} />
+          <div className="flex flex-col items-center space-y-4">
+            <div className="flex justify-center">
+              <SearchBar onSearch={setSearchQuery} />
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Total Applications: <span className="font-semibold">{totalApps}</span>
+            </p>
           </div>
         </div>
 
         {/* Categories */}
         <div className="mb-8">
-          <Categories onSelect={setSelectedCategory} />
+          <Categories onSelect={setSelectedCategory} categoryCounts={categoryCounts} />
         </div>
 
         {/* Apps Grid */}
